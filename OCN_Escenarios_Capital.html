@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>OCN — Escenarios de Retornos</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #ede9e2;
+    --terracotta: #aa593c;
+    --teal: #466d79;
+    --teal-deep: #24444f;
+    --teal-dark: #132932;
+    --hairline: #c8c2b6;
+    --mute: #7a8a90;
+    --paper: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--cream); color: var(--teal-dark); font-family: 'Jost', system-ui, sans-serif; font-weight: 300; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .page { background: var(--paper); width: 11in; margin: 24px auto; padding: 0.5in 0.65in; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+  header { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 14px; border-bottom: 1px solid var(--hairline); }
+  .eyebrow { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-deep); font-weight: 500; }
+  h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; font-weight: 500; color: var(--teal-dark); margin-top: 4px; letter-spacing: 0.005em; }
+  .meta { font-size: 10px; color: var(--mute); text-align: right; letter-spacing: 0.08em; text-transform: uppercase; }
+  .lead { margin-top: 14px; font-size: 13px; color: var(--teal-deep); max-width: 10in; line-height: 1.55; }
+  .lead strong.dyn { font-weight: 500; color: var(--terracotta); }
+  .assumptions-bar { margin-top: 14px; padding: 12px 18px; background: #faf7f0; border: 1px solid var(--hairline); display: flex; gap: 24px; flex-wrap: wrap; justify-content: space-between; }
+  .assumption { display: flex; flex-direction: column; gap: 2px; }
+  .a-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mute); }
+  .a-value { font-size: 12px; color: var(--teal-dark); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .scenario-tabs { margin-top: 22px; display: flex; gap: 8px; }
+  .scenario-tab { flex: 1; padding: 14px 18px; background: var(--paper); border: 1px solid var(--hairline); cursor: pointer; text-align: left; }
+  .scenario-tab:hover { background: var(--cream); border-color: var(--terracotta); }
+  .scenario-tab.active { background: var(--terracotta); border-color: var(--terracotta); color: var(--paper); }
+  .scenario-tab .tab-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px; opacity: 0.7; }
+  .scenario-tab.active .tab-label { opacity: 0.85; }
+  .scenario-tab .tab-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 500; line-height: 1; margin-bottom: 4px; }
+  .scenario-tab .tab-sub { font-size: 10.5px; opacity: 0.8; }
+  .scenario-desc { margin-top: 14px; padding: 14px 18px; background: var(--cream); border-left: 2px solid var(--terracotta); font-size: 12px; color: var(--teal-deep); line-height: 1.55; min-height: 92px; }
+  .scenario-desc strong { font-weight: 500; color: var(--teal-dark); }
+  .hero { margin-top: 24px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: start; }
+  .hero-left { padding: 4px 0; }
+  .hero-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-deep); font-weight: 500; margin-bottom: 6px; }
+  .hero-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 60px; font-weight: 500; color: var(--terracotta); line-height: 1; letter-spacing: -0.005em; font-variant-numeric: tabular-nums; }
+  .hero-sub { font-size: 12px; color: var(--mute); margin-top: 8px; }
+  .hero-mini { display: flex; gap: 24px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--hairline); }
+  .hero-mini > div { flex: 1; }
+  .mini-label { font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mute); margin-bottom: 4px; }
+  .mini-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 500; color: var(--teal-dark); line-height: 1; }
+  .mini-sub { font-size: 10px; color: var(--mute); margin-top: 3px; }
+  .breakdown-box { background: #faf7f0; padding: 16px 20px; border: 1px solid var(--hairline); }
+  .breakdown-title { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-deep); font-weight: 500; margin-bottom: 10px; }
+  .hero-line { margin-top: 24px; text-align: center; }
+  .hero-line .hero-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-deep); font-weight: 500; margin-bottom: 4px; }
+  .hero-line .hero-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 56px; font-weight: 500; color: var(--terracotta); line-height: 1; font-variant-numeric: tabular-nums; }
+  .hero-line .hero-sub { font-size: 12px; color: var(--teal-deep); margin-top: 8px; }
+  .hero-line .hero-sub strong { font-weight: 500; color: var(--teal-dark); }
+  .waterfall-wrap { margin-top: 22px; }
+  .waterfall-svg { display: block; width: 100%; height: auto; }
+  .wf-bar-label { font-family: 'Jost', system-ui, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; fill: var(--teal-deep); font-weight: 500; }
+  .wf-bar-sub { font-family: 'Jost', system-ui, sans-serif; font-size: 9.5px; fill: var(--mute); }
+  .wf-bar-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 17px; font-weight: 500; fill: var(--teal-dark); }
+  .wf-bar-num.terra { fill: var(--terracotta); }
+  .wf-panel-title { font-family: 'Jost', system-ui, sans-serif; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; fill: var(--teal-deep); font-weight: 500; }
+  .b-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--hairline); font-size: 11.5px; }
+  .b-row:last-child { border-bottom: none; }
+  .b-row .lbl { color: var(--teal-deep); }
+  .b-row .val { font-variant-numeric: tabular-nums; font-weight: 500; color: var(--teal-dark); }
+  .b-row.hero-row { padding: 8px 0; border-top: 1px solid var(--hairline); border-bottom: none; font-size: 12.5px; font-weight: 500; margin-top: 4px; }
+  .b-row.hero-row .lbl { color: var(--teal-dark); font-weight: 500; }
+  .b-row.hero-row .val { color: var(--terracotta); }
+  .b-row.subtle .val { color: var(--mute); }
+  .controls { margin-top: 24px; padding: 18px 22px; background: #faf7f0; border: 1px solid var(--hairline); }
+  .controls-title { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-deep); font-weight: 500; margin-bottom: 12px; }
+  .controls-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px 28px; }
+  .control { display: flex; flex-direction: column; gap: 3px; font-size: 11px; }
+  .control-label { color: var(--teal-deep); display: flex; justify-content: space-between; align-items: baseline; }
+  .control-label .lbl-text { color: var(--teal-deep); }
+  .control-label strong { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13.5px; color: var(--terracotta); font-weight: 500; }
+  .control-hint { font-size: 9.5px; color: var(--mute); font-style: italic; margin-top: 1px; }
+  input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--hairline); outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 13px; height: 13px; background: var(--terracotta); cursor: pointer; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--terracotta); border-radius: 50%; }
+  input[type="range"]::-moz-range-thumb { width: 13px; height: 13px; background: var(--terracotta); cursor: pointer; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--terracotta); border-radius: 50%; }
+  .trajectory { margin-top: 24px; }
+  .trajectory-svg { display: block; width: 100%; height: auto; }
+  .traj-legend { display: flex; gap: 24px; margin-top: 4px; padding: 0 12px; flex-wrap: wrap; }
+  .traj-legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--teal-deep); }
+  .traj-legend-swatch { width: 30px; height: 3px; flex-shrink: 0; }
+  .traj-legend-swatch.pes { background: #8a8d8e; }
+  .traj-legend-swatch.base { background: var(--terracotta); }
+  .traj-legend-swatch.opt { background: var(--teal); }
+  .ax-tick { font-family: 'Jost', system-ui, sans-serif; font-size: 13px; fill: #7a8a90; }
+  .ax-title { font-family: 'Jost', system-ui, sans-serif; font-size: 11px; fill: #7a8a90; letter-spacing: 0.12em; text-transform: uppercase; }
+  .annot { font-family: 'Jost', system-ui, sans-serif; font-size: 12px; fill: #24444f; }
+  .annot-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 500; }
+  .glossary { margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--hairline); }
+  .glossary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 28px; margin-top: 8px; }
+  .gloss-item { padding: 6px 0; border-bottom: 1px solid var(--hairline); }
+  .gloss-term { font-size: 10.5px; font-weight: 500; color: var(--terracotta); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px; }
+  .gloss-def { font-size: 10.5px; color: var(--teal-deep); line-height: 1.4; }
+  .section-eyebrow { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-deep); font-weight: 500; margin-bottom: 4px; }
+  .section-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 500; color: var(--teal-dark); margin-bottom: 8px; }
+  .foot { margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--hairline); display: flex; justify-content: space-between; font-size: 9.5px; color: var(--mute); letter-spacing: 0.08em; text-transform: uppercase; }
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; width: 100%; padding: 0.35in 0.5in; }
+    .controls { display: none; }
+    @page { size: 11in 8.5in; margin: 0.25in; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div>
+      <div class="eyebrow">OCN Resort &amp; Residences  ·  Escenarios de Retornos</div>
+      <h1>Escenarios de Retornos</h1>
+    </div>
+    <div class="meta">Confidencial<br>Mayo de 2026</div>
+  </header>
+
+  <p class="lead">
+    Tres escenarios de cómo puede comportarse el proyecto, definidos por la combinación de velocidad de ventas, costos de obra, desempeño operativo del hotel, y cap rate de salida. En cada uno, los sliders abajo permiten definir cómo se levanta el capital faltante: cuánto como deuda, cuánto como equity, y qué porción viene vía brokers. Participación total de JLEA en el caso base: <strong class="dyn" id="leadJorge">USD 19.6M</strong>.
+  </p>
+
+  <div class="assumptions-bar">
+    <div class="assumption"><span class="a-label">Target raise total</span><span class="a-value">USD 15M</span></div>
+    <div class="assumption"><span class="a-label">Comisión a brokers</span><span class="a-value">5%</span></div>
+    <div class="assumption"><span class="a-label">Preferente del LP</span><span class="a-value">8% anual</span></div>
+    <div class="assumption"><span class="a-label">Horizonte del proyecto</span><span class="a-value">5 años</span></div>
+    <div class="assumption"><span class="a-label">Plazo de deuda</span><span class="a-value">3 años</span></div>
+    <div class="assumption"><span class="a-label">GP split</span><span class="a-value">50/50 JLEA / OCN Advisors</span></div>
+  </div>
+
+  <div class="scenario-tabs">
+    <button class="scenario-tab" data-scenario="pesimista">
+      <div class="tab-label">01  Pesimista</div>
+      <div class="tab-num">USD <span id="tabPes">6M</span></div>
+      <div class="tab-sub">Drivers en contra</div>
+    </button>
+    <button class="scenario-tab active" data-scenario="base">
+      <div class="tab-label">02  Base</div>
+      <div class="tab-num">USD <span id="tabBase">19.6M</span></div>
+      <div class="tab-sub">Cumplimiento del modelo</div>
+    </button>
+    <button class="scenario-tab" data-scenario="optimista">
+      <div class="tab-label">03  Optimista</div>
+      <div class="tab-num">USD <span id="tabOpt">32M</span></div>
+      <div class="tab-sub">Drivers a favor</div>
+    </button>
+  </div>
+
+  <div class="scenario-desc" id="scenarioDesc">
+    <strong>Escenario Base.</strong> El proyecto cumple los números del modelo: revenue del master plan, costos reconciliados, hotel operando bien, ventas a buen ritmo. El LP recibe su capital de regreso más 3x sobre lo invertido. El GP captura el promote sobre el exceso por encima del preferente. Este es el escenario que sostiene la conversación contigo y con cualquier inversionista institucional.
+  </div>
+
+  <div class="hero-line">
+    <div class="hero-label">Participación total de JLEA en este escenario</div>
+    <div class="hero-num" id="heroNum">USD 20.1M</div>
+    <div class="hero-sub" id="heroSub"><strong>5.2x</strong> sobre USD 3.9M aportados · USD 12.4M como LP + USD 7.7M como GP</div>
+  </div>
+
+  <div class="waterfall-wrap">
+    <svg class="waterfall-svg" viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <line x1="60" y1="290" x2="1080" y2="290" stroke="#b8b0a0" stroke-width="0.8"/>
+      <line x1="850" y1="20" x2="850" y2="290" stroke="#b8b0a0" stroke-width="0.6" stroke-dasharray="3 3"/>
+      <text x="965" y="14" text-anchor="middle" class="wf-panel-title">Parte de JLEA en el flujo</text>
+      <g id="wfBars"></g>
+      <g id="wfJleaBars"></g>
+    </svg>
+  </div>
+
+  <div class="controls">
+    <div class="controls-title">Estructura del capital faltante · USD 7M ya está dentro, faltan USD 8M por levantar</div>
+    <div class="controls-grid">
+      <div class="control">
+        <div class="control-label"><span class="lbl-text">% del capital nuevo como deuda</span><strong id="debtPctLabel">0%</strong></div>
+        <input type="range" id="debtPctSlider" min="0" max="100" value="0" step="5">
+        <div class="control-hint" id="debtPctHint">USD 0M de deuda, USD 8M de LP equity nuevo.</div>
+      </div>
+      <div class="control">
+        <div class="control-label"><span class="lbl-text">Tasa de interés anual de la deuda</span><strong id="debtRateLabel">13%</strong></div>
+        <input type="range" id="debtRateSlider" min="8" max="18" value="13" step="0.5">
+        <div class="control-hint">Capital Bank ~13%. Bancos mexicanos típicos 12-15%.</div>
+      </div>
+      <div class="control">
+        <div class="control-label"><span class="lbl-text">% del LP nuevo que viene vía brokers</span><strong id="brokerPctLabel">0%</strong></div>
+        <input type="range" id="brokerPctSlider" min="0" max="100" value="0" step="5">
+        <div class="control-hint" id="brokerPctHint">Comisión de éxito fija al 5% sobre lo que el broker aporte.</div>
+      </div>
+    </div>
+    <div style="margin-top:14px; padding-top:10px; border-top:1px solid var(--hairline); font-size:10.5px; color:var(--mute); font-style:italic; line-height:1.5;">
+      Supuestos fijos del modelo: target raise total USD 15M (basado en peak equity del proyecto), comisión a brokers 5%, horizonte de proyecto 5 años para cómputo del preferente del LP, plazo de crédito 3 años (típico construcción en México) para cómputo del servicio de deuda.
+    </div>
+  </div>
+
+  <div class="captable-section">
+    <div class="section-eyebrow">Cap Table en este escenario</div>
+    <div class="section-title">Lo que recibe cada participante</div>
+    <table class="captable">
+      <thead>
+        <tr><th>Participante</th><th>Aporte</th><th>% del LP</th><th>Distribución</th><th>Múltiplo</th></tr>
+      </thead>
+      <tbody id="captableBody"></tbody>
+    </table>
+    <div class="captable-foot" id="captableFoot"></div>
+  </div>
+
+  <div class="trajectory">
+    <div class="section-eyebrow">Trayectoria de JLEA a lo largo del proyecto</div>
+    <div class="section-title">Cuánto dinero acumula JLEA en cada escenario</div>
+    <svg class="trajectory-svg" viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <g stroke="#ece8df" stroke-width="0.8">
+        <line x1="90" y1="30" x2="1010" y2="30"/>
+        <line x1="90" y1="100" x2="1010" y2="100"/>
+        <line x1="90" y1="170" x2="1010" y2="170"/>
+        <line x1="90" y1="240" x2="1010" y2="240"/>
+      </g>
+      <line x1="90" y1="290" x2="1010" y2="290" stroke="#b8b0a0" stroke-width="1"/>
+      <g class="ax-tick">
+        <text id="trajY100" x="80" y="34" text-anchor="end">+40</text>
+        <text id="trajY75" x="80" y="104" text-anchor="end">+30</text>
+        <text id="trajY50" x="80" y="174" text-anchor="end">+20</text>
+        <text id="trajY25" x="80" y="244" text-anchor="end">+10</text>
+        <text x="80" y="294" text-anchor="end">0</text>
+      </g>
+      <text x="32" y="160" class="ax-title" transform="rotate(-90 32 160)" text-anchor="middle">Dinero acumulado · USD M</text>
+      <g class="ax-tick">
+        <text x="90" y="312" text-anchor="middle">2026</text>
+        <text x="243" y="312" text-anchor="middle">2027</text>
+        <text x="397" y="312" text-anchor="middle">2028</text>
+        <text x="550" y="312" text-anchor="middle">2029</text>
+        <text x="703" y="312" text-anchor="middle">2030</text>
+        <text x="857" y="312" text-anchor="middle">2031</text>
+        <text x="1010" y="312" text-anchor="middle">2032</text>
+      </g>
+      <g stroke="#b8b0a0" stroke-width="0.6">
+        <line x1="90" y1="290" x2="90" y2="294"/>
+        <line x1="243" y1="290" x2="243" y2="294"/>
+        <line x1="397" y1="290" x2="397" y2="294"/>
+        <line x1="550" y1="290" x2="550" y2="294"/>
+        <line x1="703" y1="290" x2="703" y2="294"/>
+        <line x1="857" y1="290" x2="857" y2="294"/>
+        <line x1="1010" y1="290" x2="1010" y2="294"/>
+      </g>
+      <line x1="90" y1="30" x2="90" y2="290" stroke="#b8b0a0" stroke-width="0.8"/>
+      <line x1="90" y1="290" x2="1010" y2="290" stroke="#b8b0a0" stroke-width="0.8"/>
+      <polyline id="linePes" fill="none" stroke="#8a8d8e" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" stroke-linejoin="round" points=""/>
+      <polyline id="lineBase" fill="none" stroke="#aa593c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" points=""/>
+      <polyline id="lineOpt" fill="none" stroke="#466d79" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points=""/>
+      <text id="endPes" x="1015" y="0" class="annot annot-num" fill="#8a8d8e"></text>
+      <text id="endBase" x="1015" y="0" class="annot annot-num" fill="#aa593c"></text>
+      <text id="endOpt" x="1015" y="0" class="annot annot-num" fill="#466d79"></text>
+    </svg>
+    <div class="traj-legend">
+      <div class="traj-legend-item"><span class="traj-legend-swatch pes"></span><span><strong>Pesimista</strong></span></div>
+      <div class="traj-legend-item"><span class="traj-legend-swatch base"></span><span><strong>Base</strong> (Gómez)</span></div>
+      <div class="traj-legend-item"><span class="traj-legend-swatch opt"></span><span><strong>Optimista</strong></span></div>
+    </div>
+  </div>
+
+  <div class="glossary">
+    <div class="section-eyebrow">Glosario rápido</div>
+    <div class="glossary-grid">
+      <div class="gloss-item"><div class="gloss-term">LP — Limited Partner</div><div class="gloss-def">Quien aporta capital. Recibe preferente y participación en distribuciones. JLEA participa aquí con USD 3.9M.</div></div>
+      <div class="gloss-item"><div class="gloss-term">GP — General Partner</div><div class="gloss-def">Quien opera el proyecto. Captura promote sobre el exceso. JLEA tiene 50% del GP. OCN Advisors tiene el otro 50%.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Preferente</div><div class="gloss-def">Retorno mínimo al LP antes de cualquier reparto: 8% anual sobre su capital.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Promote</div><div class="gloss-def">Lo que captura el GP sobre el exceso por encima del preferente. Solo existe si el proyecto sobre-cumple.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Tiers del waterfall</div><div class="gloss-def">8-15%: 80/20 (LP/GP). 15-20%: 70/30. 20%+: 60/40. Mientras mejor el proyecto, más captura el GP.</div></div>
+      <div class="gloss-item"><div class="gloss-term">Servicio de deuda</div><div class="gloss-def">Si parte del capital es préstamo, el proyecto paga intereses todos los años y devuelve el principal al final. Sale del flujo antes del waterfall.</div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>OCN Development Partners  ·  Discusión interna  ·  Modelo de escenarios v1</span>
+    <span>22/05/2026</span>
+  </div>
+
+</div>
+
+<script>
+var state = {
+  scenario: 'base',
+  cfPes: 25,
+  cfBase: 65,
+  cfOpt: 100,
+  targetRaise: 15,
+  existingCap: 7,
+  jorgeLPCap: 3.9,
+  pabloCapital: 1.2,
+  jacksonCapital: 0.48,
+  bradPrincipal: 1.5,
+  debtPct: 0,
+  debtRate: 0.13,
+  holdYears: 5,
+  brokerPct: 0,
+  brokerFee: 0.05,
+  lpPref: 0.08,
+  jorgeGPShare: 0.50,
+  bradPayable: 1.95
+};
+
+var descriptions = {
+  pesimista: '<strong>Escenario Pesimista — drivers.</strong> Velocidad de ventas lenta (ASP realizado 35-40% bajo target), costos al alto del rango (10-15% sobre bid), hotel sub-cumple en su ramp-up (ocupación 45-50% vs target 65%), cap rate de salida sube a 12%. El LP recupera capital y parte del preferente, pero no hay exceso para promote del GP. Es el escenario de protección: el LP cobra primero, el GP no gana hasta que el proyecto cubra el preferente.',
+  base: '<strong>Escenario Base — drivers.</strong> Ventas absorben al precio promedio modelado, costos al bid reconciliado, hotel opera al estabilizado (65% ocupación, ADR USD 550), cap rate 10% al exit. LP recibe 3x sobre capital invertido. GP captura promote sobre el exceso por encima del preferente del LP.',
+  optimista: '<strong>Escenario Optimista — drivers.</strong> Ventas absorben rápido (ASP sostiene target completo, velocidad +20% sobre base), costos al bajo del rango por economías de escala en multifamiliar, hotel sobre-cumple (ocupación 75%, ADR USD 600+), cap rate 8-9% al exit. LP recibe 4-5x sobre capital. GP captura el tier alto del promote (60/40 GP-favorable arriba de 20% IRR).'
+};
+
+function scenarioCF() {
+  if (state.scenario === 'pesimista') return state.cfPes;
+  if (state.scenario === 'optimista') return state.cfOpt;
+  return state.cfBase;
+}
+
+function calc(scen) {
+  // Allow override for trajectory rendering of all 3 scenarios
+  var origScen = state.scenario;
+  if (scen) state.scenario = scen;
+  var cf = scenarioCF();
+  if (scen) state.scenario = origScen;
+
+  var newCapital = state.targetRaise - state.existingCap;
+  if (newCapital < 0) newCapital = 0;
+  var debtCapital = newCapital * (state.debtPct / 100);
+  var newLPCapital = newCapital - debtCapital;
+  var totalLPCapital = state.existingCap + newLPCapital;
+
+  // Debt service: plazo típico de crédito construcción 3 años · interés simple total + repago de principal
+  var debtTermYears = 3;
+  var debtInterest = debtCapital * state.debtRate * debtTermYears;
+  var debtService = debtInterest + debtCapital;
+
+  // Broker fee: % of new LP capital from brokers × fee%
+  var brokerCapital = newLPCapital * (state.brokerPct / 100);
+  var brokerFeePaid = brokerCapital * state.brokerFee;
+
+  // CF available after Brad, debt service, broker fees
+  var afterBrad = cf - state.bradPayable;
+  var afterDebt = afterBrad - debtService;
+  var afterBroker = afterDebt - brokerFeePaid;
+
+  // Waterfall
+  var lpCapPref = totalLPCapital * (1 + state.lpPref * state.holdYears);
+
+  var lpTotal = 0, gpTotal = 0;
+
+  if (afterBroker <= 0) {
+    // Catastrophic: not enough to cover even LP capital
+    lpTotal = Math.max(0, afterBroker);
+    gpTotal = 0;
+  } else if (afterBroker <= lpCapPref) {
+    // Pesimista path: LP gets what's available, no promote
+    lpTotal = afterBroker;
+    gpTotal = 0;
+  } else {
+    // Tier 2: between cap+pref and 15% IRR (1.75x total return), 80/20 LP/GP
+    var t2Threshold = totalLPCapital * (1 + 0.15 * state.holdYears);
+    // Tier 3: between 15% and 20% IRR (2.0x), 70/30 LP/GP
+    var t3Threshold = totalLPCapital * (1 + 0.20 * state.holdYears);
+
+    var afterCapPref = afterBroker - lpCapPref;
+    var remaining = afterCapPref;
+
+    // Tier 2
+    var t2Cap = Math.max(0, t2Threshold - lpCapPref);
+    var t2Pool = Math.min(remaining, t2Cap);
+    var t2LP = t2Pool * 0.80;
+    var t2GP = t2Pool * 0.20;
+    remaining -= t2Pool;
+
+    // Tier 3
+    var t3Cap = Math.max(0, t3Threshold - t2Threshold);
+    var t3Pool = Math.min(remaining, t3Cap);
+    var t3LP = t3Pool * 0.70;
+    var t3GP = t3Pool * 0.30;
+    remaining -= t3Pool;
+
+    // Tier 4 (60/40 LP/GP)
+    var t4LP = remaining * 0.60;
+    var t4GP = remaining * 0.40;
+
+    lpTotal = lpCapPref + t2LP + t3LP + t4LP;
+    gpTotal = t2GP + t3GP + t4GP;
+  }
+
+  var jorgeLPShare = totalLPCapital > 0 ? (state.jorgeLPCap / totalLPCapital) : 0;
+  var jorgeLP = lpTotal * jorgeLPShare;
+  var jorgeGP = gpTotal * state.jorgeGPShare;
+  var jorgeTotal = jorgeLP + jorgeGP;
+
+  return {
+    cf: cf,
+    newCapital: newCapital,
+    debtCapital: debtCapital,
+    newLPCapital: newLPCapital,
+    totalLPCapital: totalLPCapital,
+    debtService: debtService,
+    debtInterest: debtInterest,
+    debtPrincipal: debtCapital,
+    brokerCapital: brokerCapital,
+    brokerFee: brokerFeePaid,
+    afterBroker: afterBroker,
+    lpTotal: lpTotal,
+    gpTotal: gpTotal,
+    jorgeLP: jorgeLP,
+    jorgeGP: jorgeGP,
+    jorgeTotal: jorgeTotal
+  };
+}
+
+function fmt(n) {
+  if (n === 0) return 'USD 0';
+  var d = Math.abs(n) < 10 ? 2 : 1;
+  if (n < 0) return 'USD −' + Math.abs(n).toFixed(d) + 'M';
+  return 'USD ' + n.toFixed(d) + 'M';
+}
+function fmtMini(n) {
+  var d = Math.abs(n) < 10 ? 1 : 0;
+  if (n < 0) return Math.abs(n).toFixed(d);
+  return n.toFixed(d);
+}
+
+// Trajectory
+var years = [2026, 2026.5, 2027, 2027.5, 2028, 2028.5, 2029, 2029.5, 2030, 2030.5, 2031, 2031.5, 2032];
+var trajMaxY = 40;  // dynamic max for trajectory y-axis
+function xC(yr) { return 90 + ((yr - 2026) / 6) * 920; }
+function yC(v) { return 290 - (v / trajMaxY) * 260; }  // y: 290 (zero) to 30 (+40)
+
+function buildTraj(endVal) {
+  if (endVal <= 0) {
+    return years.map(function(){ return 0; });
+  }
+  var s = [0, 0, 0, 0.02, 0.05, 0.08, 0.12, 0.20, 0.40, 0.55, 0.70, 0.86, 1.0];
+  return s.map(function(x){ return x * endVal; });
+}
+
+function renderTrajectory() {
+  var pesJorge = calc('pesimista').jorgeTotal;
+  var baseJorge = calc('base').jorgeTotal;
+  var optJorge = calc('optimista').jorgeTotal;
+  // Dynamic Y-axis max — round up to nearest 10 above the max value, floor at 40
+  var maxJorge = Math.max(pesJorge, baseJorge, optJorge, 0);
+  trajMaxY = Math.max(40, Math.ceil((maxJorge + 5) / 10) * 10);
+  var y100 = document.getElementById('trajY100'); if (y100) y100.textContent = '+' + trajMaxY;
+  var y75 = document.getElementById('trajY75'); if (y75) y75.textContent = '+' + Math.round(trajMaxY * 0.75);
+  var y50 = document.getElementById('trajY50'); if (y50) y50.textContent = '+' + Math.round(trajMaxY * 0.5);
+  var y25 = document.getElementById('trajY25'); if (y25) y25.textContent = '+' + Math.round(trajMaxY * 0.25);
+  var pesPts = buildTraj(pesJorge);
+  var basePts = buildTraj(baseJorge);
+  var optPts = buildTraj(optJorge);
+  document.getElementById('linePes').setAttribute('points', years.map(function(y,i){ return xC(y).toFixed(1) + ',' + yC(pesPts[i]).toFixed(1); }).join(' '));
+  document.getElementById('lineBase').setAttribute('points', years.map(function(y,i){ return xC(y).toFixed(1) + ',' + yC(basePts[i]).toFixed(1); }).join(' '));
+  document.getElementById('lineOpt').setAttribute('points', years.map(function(y,i){ return xC(y).toFixed(1) + ',' + yC(optPts[i]).toFixed(1); }).join(' '));
+  var ep = document.getElementById('endPes'); ep.setAttribute('y', yC(pesJorge) + 4); ep.textContent = '+' + pesJorge.toFixed(1);
+  var eb = document.getElementById('endBase'); eb.setAttribute('y', yC(baseJorge) + 4); eb.textContent = '+' + baseJorge.toFixed(1);
+  var eo = document.getElementById('endOpt'); eo.setAttribute('y', yC(optJorge) + 4); eo.textContent = '+' + optJorge.toFixed(1);
+}
+
+function renderCapTable(r) {
+  // Build LP class rows with per-LP distribution and EQM
+  // LP pool excludes Brad (treated as senior debt off the top)
+  var lpMembers = [
+    { name: 'JLEA (Jorge Echaide)', cap: state.jorgeLPCap, highlight: true },
+    { name: 'Pablo', cap: state.pabloCapital },
+    { name: 'Jackson Slavick', cap: state.jacksonCapital },
+    { name: 'Otros existentes', cap: Math.max(0, state.existingCap - state.jorgeLPCap - state.pabloCapital - state.jacksonCapital) },
+    { name: 'Capital Raise nuevo', cap: r.newLPCapital }
+  ];
+
+  var totalLP = r.totalLPCapital;
+  var lpTotalDist = r.lpTotal;
+
+  var html = '';
+  lpMembers.forEach(function(m) {
+    if (m.cap < 0.01) return;
+    var pct = totalLP > 0 ? (m.cap / totalLP) : 0;
+    var dist = lpTotalDist * pct;
+    var eqm = m.cap > 0 ? (dist / m.cap) : 0;
+    var rowClass = m.highlight ? 'highlight' : '';
+    html += '<tr class="' + rowClass + '">';
+    html += '<td>' + m.name + '</td>';
+    html += '<td>' + fmt(m.cap) + '</td>';
+    html += '<td>' + (pct * 100).toFixed(1) + '%</td>';
+    html += '<td>' + fmt(dist) + '</td>';
+    html += '<td>' + eqm.toFixed(2) + 'x</td>';
+    html += '</tr>';
+  });
+  // Total LP row
+  html += '<tr class="total">';
+  html += '<td>Total LP</td>';
+  html += '<td>' + fmt(totalLP) + '</td>';
+  html += '<td>100%</td>';
+  html += '<td>' + fmt(lpTotalDist) + '</td>';
+  html += '<td>' + (totalLP > 0 ? (lpTotalDist/totalLP).toFixed(2) : '0') + 'x</td>';
+  html += '</tr>';
+  // GP section — JLEA + OCN Advisors at 50/50
+  html += '<tr><td colspan="5" style="padding-top:14px;color:var(--mute);font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;border-bottom:1px solid var(--hairline);">GP — operadores del proyecto</td></tr>';
+  html += '<tr class="highlight"><td>JLEA</td><td>sweat equity</td><td>50%</td><td>' + fmt(r.jorgeGP) + '</td><td>—</td></tr>';
+  html += '<tr><td>OCN Advisors</td><td>sweat equity</td><td>50%</td><td>' + fmt(r.gpTotal - r.jorgeGP) + '</td><td>—</td></tr>';
+  html += '<tr class="total"><td>Total GP</td><td>—</td><td>100%</td><td>' + fmt(r.gpTotal) + '</td><td>—</td></tr>';
+
+  document.getElementById('captableBody').innerHTML = html;
+
+  // Footer note: Brad and new institutional debt
+  var bradMult = state.bradPrincipal > 0 ? (state.bradPayable / state.bradPrincipal).toFixed(2) : '0';
+  var debtMult = r.debtPrincipal > 0 ? (r.debtService / r.debtPrincipal).toFixed(2) : '—';
+  var footHtml = 'Deuda (fuera del waterfall del LP). ';
+  footHtml += 'Brad: USD ' + state.bradPrincipal.toFixed(2) + 'M @ 30% fijo → ' + fmt(state.bradPayable) + ' a 3 años · múltiplo ' + bradMult + 'x. ';
+  if (r.debtPrincipal > 0.01) {
+    footHtml += 'Nueva deuda institucional: ' + fmt(r.debtPrincipal) + ' @ ' + (state.debtRate*100).toFixed(1) + '% × 3 años → ' + fmt(r.debtService) + ' total (int. ' + fmt(r.debtInterest) + ') · múltiplo ' + debtMult + 'x.';
+  } else {
+    footHtml += 'Sin nueva deuda institucional en este escenario.';
+  }
+  document.getElementById('captableFoot').innerHTML = footHtml;
+}
+
+function renderWaterfall(r) {
+  // True waterfall: deductions and allocations cascade down from Flujo Total top.
+  // Sum of bars 2-6 = bar 1 (Flujo Total).
+  var baseline = 290;
+  var maxHeight = 220;
+  var globalMax = Math.max(state.cfPes, state.cfBase, state.cfOpt);
+  var scale = globalMax > 0 ? maxHeight / globalMax : 0;
+  var barWidth = 90;
+  var topY = baseline - r.cf * scale; // top of Flujo Total
+
+  var cols = [60, 192, 324, 456, 588, 720]; // 6 column positions
+  var svgBars = '';
+
+  // Helper to draw a bar with label above + name/sub below baseline
+  function drawBar(x, y, h, fillColor, opacity, name, sub, isGP) {
+    var rect = '<rect x="' + x + '" y="' + y + '" width="' + barWidth + '" height="' + h + '" fill="' + fillColor + '"';
+    if (opacity !== undefined) rect += ' opacity="' + opacity + '"';
+    rect += '/>';
+    return rect;
+  }
+
+  // Bar 0: Flujo Total (solid, full height)
+  svgBars += '<rect x="' + cols[0] + '" y="' + topY + '" width="' + barWidth + '" height="' + (r.cf * scale) + '" fill="#132932"/>';
+  var ftLblY = topY - 8;
+  if (ftLblY < 25) ftLblY = 25;
+  svgBars += '<text x="' + (cols[0] + barWidth/2) + '" y="' + ftLblY + '" text-anchor="middle" class="wf-bar-num">' + fmt(r.cf) + '</text>';
+  svgBars += '<text x="' + (cols[0] + barWidth/2) + '" y="' + (baseline + 20) + '" text-anchor="middle" class="wf-bar-label">Flujo Total</text>';
+
+  // Cascade through deductions and allocations
+  var items = [
+    { name: 'Brad', value: state.bradPayable, color: '#7a8a90', sub: 'deuda + 30%' },
+    { name: 'Deuda Inst.', value: r.debtService, color: '#7a8a90', sub: 'int. ' + fmt(r.debtInterest), splitInterest: r.debtInterest },
+    { name: 'Brokers', value: r.brokerFee, color: '#7a8a90', sub: '5% comisión' },
+    { name: 'LP', value: r.lpTotal, color: '#466d79', sub: 'capital + pref + tiers' },
+    { name: 'GP', value: r.gpTotal, color: '#aa593c', sub: 'promote sobre exceso', isGP: true }
+  ];
+
+  var runningTop = topY;  // each bar starts where previous ended
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    var h = it.value * scale;
+    if (h < 0) h = 0;
+    var x = cols[i + 1];
+    var y = runningTop;
+
+    if (it.splitInterest !== undefined && it.value > 0) {
+      // Split debt service: principal (bottom, lighter) + interest (top, darker)
+      var principalH = (it.value - it.splitInterest) * scale;
+      var interestH = it.splitInterest * scale;
+      svgBars += '<rect x="' + x + '" y="' + y + '" width="' + barWidth + '" height="' + interestH + '" fill="#7a8a90"/>';
+      svgBars += '<rect x="' + x + '" y="' + (y + interestH) + '" width="' + barWidth + '" height="' + principalH + '" fill="#7a8a90" opacity="0.55"/>';
+    } else {
+      svgBars += '<rect x="' + x + '" y="' + y + '" width="' + barWidth + '" height="' + h + '" fill="' + it.color + '"/>';
+    }
+
+    // Connector line from previous bar bottom to this bar top (subtle)
+    if (i > 0 || true) {
+      var connY = runningTop;
+      var prevX = cols[i];
+      svgBars += '<line x1="' + (prevX + barWidth) + '" y1="' + connY + '" x2="' + x + '" y2="' + connY + '" stroke="#c8c2b6" stroke-width="0.6" stroke-dasharray="2 2"/>';
+    }
+
+    // Amount label above bar
+    var amtY = y - 6;
+    if (amtY < 18) amtY = 18;
+    var numClass = it.isGP ? 'wf-bar-num terra' : 'wf-bar-num';
+    svgBars += '<text x="' + (x + barWidth/2) + '" y="' + amtY + '" text-anchor="middle" class="' + numClass + '">' + fmt(it.value) + '</text>';
+    // Name and sub below baseline
+    svgBars += '<text x="' + (x + barWidth/2) + '" y="' + (baseline + 20) + '" text-anchor="middle" class="wf-bar-label">' + it.name + '</text>';
+    if (it.sub) {
+      svgBars += '<text x="' + (x + barWidth/2) + '" y="' + (baseline + 34) + '" text-anchor="middle" class="wf-bar-sub">' + it.sub + '</text>';
+    }
+
+    runningTop = y + h;
+  }
+
+  document.getElementById('wfBars').innerHTML = svgBars;
+
+  // JLEA panel: bars with transparency, same colors as LP/GP origin
+  var jleaXPos = [880, 990];
+  var jleaBars = [
+    { name: 'Como LP', value: r.jorgeLP, color: '#466d79', isGP: false },
+    { name: 'Como GP', value: r.jorgeGP, color: '#aa593c', isGP: true }
+  ];
+  var svgJlea = '';
+  for (var j = 0; j < jleaBars.length; j++) {
+    var b = jleaBars[j];
+    var hj = b.value * scale;
+    if (hj < 0) hj = 0;
+    var yj = baseline - hj;
+    svgJlea += '<rect x="' + jleaXPos[j] + '" y="' + yj + '" width="80" height="' + hj + '" fill="' + b.color + '" opacity="0.55"/>';
+    var amtYj = yj - 6;
+    if (amtYj < 18) amtYj = 18;
+    var numClassJ = b.isGP ? 'wf-bar-num terra' : 'wf-bar-num';
+    svgJlea += '<text x="' + (jleaXPos[j] + 40) + '" y="' + amtYj + '" text-anchor="middle" class="' + numClassJ + '">' + fmt(b.value) + '</text>';
+    svgJlea += '<text x="' + (jleaXPos[j] + 40) + '" y="' + (baseline + 20) + '" text-anchor="middle" class="wf-bar-label">' + b.name + '</text>';
+  }
+  svgJlea += '<text x="965" y="' + (baseline + 38) + '" text-anchor="middle" class="wf-bar-sub">JLEA total ' + fmt(r.jorgeLP + r.jorgeGP) + '</text>';
+  document.getElementById('wfJleaBars').innerHTML = svgJlea;
+}
+
+function render() {
+  var r = calc();
+  var pesR = calc('pesimista');
+  var baseR = calc('base');
+  var optR = calc('optimista');
+
+  // Hero line
+  document.getElementById('heroNum').textContent = fmt(r.jorgeTotal);
+  var mult = (r.jorgeTotal / state.jorgeLPCap).toFixed(1);
+  document.getElementById('heroSub').innerHTML = '<strong>' + mult + 'x</strong> sobre USD ' + state.jorgeLPCap.toFixed(1) + 'M aportados · ' + fmt(r.jorgeLP) + ' como LP + ' + fmt(r.jorgeGP) + ' como GP';
+
+  // Render waterfall + cap table
+  renderWaterfall(r);
+  renderCapTable(r);
+
+  // Lead
+  document.getElementById('leadJorge').textContent = fmt(baseR.jorgeTotal);
+
+  // Tab numbers
+  document.getElementById('tabPes').textContent = fmtMini(pesR.jorgeTotal) + 'M';
+  document.getElementById('tabBase').textContent = fmtMini(baseR.jorgeTotal) + 'M';
+  document.getElementById('tabOpt').textContent = fmtMini(optR.jorgeTotal) + 'M';
+
+  // Description
+  document.getElementById('scenarioDesc').innerHTML = descriptions[state.scenario];
+
+  // (breakdown is now rendered as waterfall)
+
+  // Slider labels
+  document.getElementById('debtPctLabel').textContent = state.debtPct.toFixed(0) + '%';
+  document.getElementById('debtPctHint').textContent = 'USD ' + r.debtCapital.toFixed(1) + 'M de deuda, USD ' + r.newLPCapital.toFixed(1) + 'M de LP equity nuevo.';
+  document.getElementById('debtRateLabel').textContent = (state.debtRate * 100).toFixed(1) + '%';
+  document.getElementById('brokerPctLabel').textContent = state.brokerPct.toFixed(0) + '%';
+  document.getElementById('brokerPctHint').textContent = state.brokerPct === 0 ? 'Sin brokers — capital directo del network del sponsor.' : 'USD ' + r.brokerCapital.toFixed(1) + 'M de LP vía brokers · 5% de comisión = USD ' + r.brokerFee.toFixed(2) + 'M.';
+
+  // Active tab
+  document.querySelectorAll('.scenario-tab').forEach(function(t){
+    t.classList.toggle('active', t.getAttribute('data-scenario') === state.scenario);
+  });
+
+  renderTrajectory();
+}
+
+function bind(id, key, transform) {
+  document.getElementById(id).addEventListener('input', function(e){
+    state[key] = transform(parseFloat(e.target.value));
+    render();
+  });
+}
+bind('debtPctSlider', 'debtPct', function(v){ return v; });
+bind('debtRateSlider', 'debtRate', function(v){ return v / 100; });
+bind('brokerPctSlider', 'brokerPct', function(v){ return v; });
+
+document.querySelectorAll('.scenario-tab').forEach(function(t){
+  t.addEventListener('click', function(){
+    state.scenario = t.getAttribute('data-scenario');
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>
