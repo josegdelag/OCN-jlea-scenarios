@@ -36,6 +36,14 @@
   .scenario-tab.active .tab-label { opacity: 0.85; }
   .scenario-tab .tab-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 500; line-height: 1; margin-bottom: 4px; }
   .scenario-tab .tab-sub { font-size: 10.5px; opacity: 0.8; }
+  .raise-presets-section { margin-top: 22px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--hairline); }
+  .raise-presets-label { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-deep); font-weight: 500; margin-bottom: 10px; }
+  .raise-presets-buttons { display: flex; gap: 10px; }
+  .raise-btn { flex: 1; padding: 12px 16px; background: var(--paper); border: 1px solid var(--hairline); cursor: pointer; text-align: left; font-family: 'Jost', system-ui, sans-serif; color: var(--teal-deep); }
+  .raise-btn:hover { background: var(--cream); border-color: var(--terracotta); color: var(--teal-dark); }
+  .raise-btn.active { background: var(--terracotta); border-color: var(--terracotta); color: var(--paper); }
+  .raise-btn strong { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; font-weight: 500; display: block; line-height: 1; margin-bottom: 4px; }
+  .raise-btn .raise-sub { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
   .scenario-desc { margin-top: 14px; padding: 14px 18px; background: var(--cream); border-left: 2px solid var(--terracotta); font-size: 12px; color: var(--teal-deep); line-height: 1.55; min-height: 92px; }
   .scenario-desc strong { font-weight: 500; color: var(--teal-dark); }
   .hero { margin-top: 24px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: start; }
@@ -98,6 +106,28 @@
   .gloss-item { padding: 6px 0; border-bottom: 1px solid var(--hairline); }
   .gloss-term { font-size: 10.5px; font-weight: 500; color: var(--terracotta); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px; }
   .gloss-def { font-size: 10.5px; color: var(--teal-deep); line-height: 1.4; }
+  .captable-section { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--hairline); }
+  .captable-wrap { margin-top: 14px; }
+  .captable { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 12.5px; }
+  .captable thead th { text-align: left; padding: 10px 16px 12px; border-bottom: 1.5px solid var(--teal-dark); color: var(--teal-deep); font-weight: 500; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .captable thead th:nth-child(n+2) { text-align: right; }
+  .captable tbody td { padding: 13px 16px; border-bottom: 1px solid var(--hairline); color: var(--teal-dark); font-variant-numeric: tabular-nums; vertical-align: baseline; line-height: 1.4; }
+  .captable tbody td:first-child { color: var(--teal-deep); font-weight: 400; }
+  .captable tbody td:nth-child(n+2) { text-align: right; }
+  .captable tbody td:nth-child(4) { font-weight: 500; color: var(--teal-dark); }
+  .captable tbody td:nth-child(5) { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16px; font-weight: 500; color: var(--terracotta); }
+  .captable tr.highlight td { color: var(--terracotta); }
+  .captable tr.highlight td:first-child { color: var(--terracotta); font-weight: 500; }
+  .captable tr.highlight td:nth-child(4) { color: var(--terracotta); font-weight: 600; }
+  .captable tr.subtotal td { background: var(--cream); border-top: 1.5px solid var(--teal-dark); border-bottom: 1px solid var(--hairline); padding: 14px 16px; font-weight: 600; color: var(--teal-dark); }
+  .captable tr.subtotal td:first-child { color: var(--teal-dark); font-weight: 600; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16px; letter-spacing: 0.01em; }
+  .captable tr.subtotal td:nth-child(4) { font-weight: 600; color: var(--teal-dark); }
+  .captable tr.subtotal td:nth-child(5) { color: var(--terracotta); font-weight: 600; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16px; }
+  .captable tr.section td { padding: 22px 16px 10px; border-bottom: 1px solid var(--hairline); color: var(--teal-deep); font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; background: var(--paper); }
+  .captable tr.section td .editorial { font-family: 'Cormorant Garamond', Georgia, serif; color: var(--terracotta); font-size: 20px; font-weight: 500; margin-right: 12px; vertical-align: -2px; letter-spacing: 0; }
+  .captable .name-sub { display: block; font-size: 10px; color: var(--mute); margin-top: 2px; font-weight: 300; }
+  .captable-foot { margin-top: 14px; padding: 12px 16px; background: var(--cream); border-left: 2px solid var(--mute); font-size: 11px; color: var(--teal-deep); line-height: 1.55; }
+  .captable-foot strong { color: var(--teal-dark); font-weight: 500; }
   .section-eyebrow { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-deep); font-weight: 500; margin-bottom: 4px; }
   .section-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 500; color: var(--teal-dark); margin-bottom: 8px; }
   .foot { margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--hairline); display: flex; justify-content: space-between; font-size: 9.5px; color: var(--mute); letter-spacing: 0.08em; text-transform: uppercase; }
@@ -125,7 +155,7 @@
   </p>
 
   <div class="assumptions-bar">
-    <div class="assumption"><span class="a-label">Target raise total</span><span class="a-value">USD 15M</span></div>
+    <div class="assumption"><span class="a-label">Capital nuevo a levantar</span><span class="a-value" id="raiseValueLabel">USD 15M</span></div>
     <div class="assumption"><span class="a-label">Comisión a brokers</span><span class="a-value">5%</span></div>
     <div class="assumption"><span class="a-label">Preferente del LP</span><span class="a-value">8% anual</span></div>
     <div class="assumption"><span class="a-label">Horizonte del proyecto</span><span class="a-value">5 años</span></div>
@@ -171,13 +201,22 @@
     </svg>
   </div>
 
+  <div class="raise-presets-section">
+    <div class="raise-presets-label">Target raise · capital nuevo a levantar</div>
+    <div class="raise-presets-buttons">
+      <button class="raise-btn" data-raise="5"><strong>USD 5M</strong><span class="raise-sub">raise mínimo · número original de Gomez</span></button>
+      <button class="raise-btn" data-raise="10"><strong>USD 10M</strong><span class="raise-sub">intermedio</span></button>
+      <button class="raise-btn active" data-raise="15"><strong>USD 15M</strong><span class="raise-sub">con colchón · no más rondas</span></button>
+    </div>
+  </div>
+
   <div class="controls">
-    <div class="controls-title">Estructura del capital faltante · USD 7M ya está dentro, faltan USD 8M por levantar</div>
+    <div class="controls-title">Estructura del capital nuevo · <span id="controlsTitleDyn">USD 7M ya está dentro, USD 15M por levantar (USD 22M total)</span></div>
     <div class="controls-grid">
       <div class="control">
         <div class="control-label"><span class="lbl-text">% del capital nuevo como deuda</span><strong id="debtPctLabel">0%</strong></div>
         <input type="range" id="debtPctSlider" min="0" max="100" value="0" step="5">
-        <div class="control-hint" id="debtPctHint">USD 0M de deuda, USD 8M de LP equity nuevo.</div>
+        <div class="control-hint" id="debtPctHint">USD 0M de deuda, USD 15M de LP equity nuevo.</div>
       </div>
       <div class="control">
         <div class="control-label"><span class="lbl-text">Tasa de interés anual de la deuda</span><strong id="debtRateLabel">13%</strong></div>
@@ -198,12 +237,17 @@
   <div class="captable-section">
     <div class="section-eyebrow">Cap Table en este escenario</div>
     <div class="section-title">Lo que recibe cada participante</div>
-    <table class="captable">
-      <thead>
-        <tr><th>Participante</th><th>Aporte</th><th>% del LP</th><th>Distribución</th><th>Múltiplo</th></tr>
-      </thead>
-      <tbody id="captableBody"></tbody>
-    </table>
+    <div class="captable-wrap">
+      <table class="captable">
+        <colgroup>
+          <col style="width:30%"><col style="width:16%"><col style="width:14%"><col style="width:20%"><col style="width:20%">
+        </colgroup>
+        <thead>
+          <tr><th>Participante</th><th>Aporte</th><th>% del bloque</th><th>Distribución</th><th>Múltiplo</th></tr>
+        </thead>
+        <tbody id="captableBody"></tbody>
+      </table>
+    </div>
     <div class="captable-foot" id="captableFoot"></div>
   </div>
 
@@ -320,8 +364,8 @@ function calc(scen) {
   var cf = scenarioCF();
   if (scen) state.scenario = origScen;
 
-  var newCapital = state.targetRaise - state.existingCap;
-  if (newCapital < 0) newCapital = 0;
+  // Target raise = capital nuevo a levantar (no incluye los USD 7M existentes)
+  var newCapital = state.targetRaise;
   var debtCapital = newCapital * (state.debtPct / 100);
   var newLPCapital = newCapital - debtCapital;
   var totalLPCapital = state.existingCap + newLPCapital;
@@ -458,20 +502,20 @@ function renderTrajectory() {
 }
 
 function renderCapTable(r) {
-  // Build LP class rows with per-LP distribution and EQM
-  // LP pool excludes Brad (treated as senior debt off the top)
-  var lpMembers = [
-    { name: 'JLEA (Jorge Echaide)', cap: state.jorgeLPCap, highlight: true },
-    { name: 'Pablo', cap: state.pabloCapital },
-    { name: 'Jackson Slavick', cap: state.jacksonCapital },
-    { name: 'Otros existentes', cap: Math.max(0, state.existingCap - state.jorgeLPCap - state.pabloCapital - state.jacksonCapital) },
-    { name: 'Capital Raise nuevo', cap: r.newLPCapital }
-  ];
-
   var totalLP = r.totalLPCapital;
   var lpTotalDist = r.lpTotal;
 
+  var lpMembers = [
+    { name: 'JLEA', subtitle: 'Jorge Echaide · sponsor principal', cap: state.jorgeLPCap, highlight: true },
+    { name: 'Pablo', subtitle: 'inversionista existente', cap: state.pabloCapital },
+    { name: 'Jackson Slavik', subtitle: 'inversionista existente', cap: state.jacksonCapital },
+    { name: 'Otros existentes', subtitle: 'capital previo al raise nuevo', cap: Math.max(0, state.existingCap - state.jorgeLPCap - state.pabloCapital - state.jacksonCapital) },
+    { name: 'Capital Raise nuevo', subtitle: 'LP institucional por levantar', cap: r.newLPCapital }
+  ];
+
   var html = '';
+  html += '<tr class="section"><td colspan="5"><span class="editorial">01</span>LP — Limited Partners</td></tr>';
+
   lpMembers.forEach(function(m) {
     if (m.cap < 0.01) return;
     var pct = totalLP > 0 ? (m.cap / totalLP) : 0;
@@ -479,42 +523,60 @@ function renderCapTable(r) {
     var eqm = m.cap > 0 ? (dist / m.cap) : 0;
     var rowClass = m.highlight ? 'highlight' : '';
     html += '<tr class="' + rowClass + '">';
-    html += '<td>' + m.name + '</td>';
+    html += '<td>' + m.name + '<span class="name-sub">' + m.subtitle + '</span></td>';
     html += '<td>' + fmt(m.cap) + '</td>';
     html += '<td>' + (pct * 100).toFixed(1) + '%</td>';
     html += '<td>' + fmt(dist) + '</td>';
     html += '<td>' + eqm.toFixed(2) + 'x</td>';
     html += '</tr>';
   });
-  // Total LP row
-  html += '<tr class="total">';
+
+  var lpMult = totalLP > 0 ? (lpTotalDist/totalLP) : 0;
+  html += '<tr class="subtotal">';
   html += '<td>Total LP</td>';
   html += '<td>' + fmt(totalLP) + '</td>';
-  html += '<td>100%</td>';
+  html += '<td>100.0%</td>';
   html += '<td>' + fmt(lpTotalDist) + '</td>';
-  html += '<td>' + (totalLP > 0 ? (lpTotalDist/totalLP).toFixed(2) : '0') + 'x</td>';
+  html += '<td>' + lpMult.toFixed(2) + 'x</td>';
   html += '</tr>';
-  // GP section — JLEA + OCN Advisors at 50/50
-  html += '<tr><td colspan="5" style="padding-top:14px;color:var(--mute);font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;border-bottom:1px solid var(--hairline);">GP — operadores del proyecto</td></tr>';
-  html += '<tr class="highlight"><td>JLEA</td><td>sweat equity</td><td>50%</td><td>' + fmt(r.jorgeGP) + '</td><td>—</td></tr>';
-  html += '<tr><td>OCN Advisors</td><td>sweat equity</td><td>50%</td><td>' + fmt(r.gpTotal - r.jorgeGP) + '</td><td>—</td></tr>';
-  html += '<tr class="total"><td>Total GP</td><td>—</td><td>100%</td><td>' + fmt(r.gpTotal) + '</td><td>—</td></tr>';
+
+  html += '<tr class="section"><td colspan="5"><span class="editorial">02</span>GP — Operadores del proyecto</td></tr>';
+
+  html += '<tr class="highlight">';
+  html += '<td>JLEA<span class="name-sub">sweat equity · operación + presencia local</span></td>';
+  html += '<td>—</td><td>50.0%</td>';
+  html += '<td>' + fmt(r.jorgeGP) + '</td>';
+  html += '<td>—</td>';
+  html += '</tr>';
+
+  html += '<tr>';
+  html += '<td>OCN Advisors<span class="name-sub">sweat equity · estructura + asset management</span></td>';
+  html += '<td>—</td><td>50.0%</td>';
+  html += '<td>' + fmt(r.gpTotal - r.jorgeGP) + '</td>';
+  html += '<td>—</td>';
+  html += '</tr>';
+
+  html += '<tr class="subtotal">';
+  html += '<td>Total GP</td>';
+  html += '<td>—</td><td>100.0%</td>';
+  html += '<td>' + fmt(r.gpTotal) + '</td>';
+  html += '<td>—</td>';
+  html += '</tr>';
 
   document.getElementById('captableBody').innerHTML = html;
 
   // Footer note: Brad and new institutional debt
   var bradMult = state.bradPrincipal > 0 ? (state.bradPayable / state.bradPrincipal).toFixed(2) : '0';
   var debtMult = r.debtPrincipal > 0 ? (r.debtService / r.debtPrincipal).toFixed(2) : '—';
-  var footHtml = 'Deuda (fuera del waterfall del LP). ';
-  footHtml += 'Brad: USD ' + state.bradPrincipal.toFixed(2) + 'M @ 30% fijo → ' + fmt(state.bradPayable) + ' a 3 años · múltiplo ' + bradMult + 'x. ';
+  var footHtml = '<strong>Deuda — fuera del waterfall del LP/GP.</strong> ';
+  footHtml += '<strong>Brad:</strong> USD ' + state.bradPrincipal.toFixed(2) + 'M @ 30% fijo → ' + fmt(state.bradPayable) + ' a 3 años · múltiplo ' + bradMult + 'x. ';
   if (r.debtPrincipal > 0.01) {
-    footHtml += 'Nueva deuda institucional: ' + fmt(r.debtPrincipal) + ' @ ' + (state.debtRate*100).toFixed(1) + '% × 3 años → ' + fmt(r.debtService) + ' total (int. ' + fmt(r.debtInterest) + ') · múltiplo ' + debtMult + 'x.';
+    footHtml += '<strong>Deuda institucional:</strong> ' + fmt(r.debtPrincipal) + ' @ ' + (state.debtRate*100).toFixed(1) + '% × 3 años → ' + fmt(r.debtService) + ' total (intereses ' + fmt(r.debtInterest) + ') · múltiplo ' + debtMult + 'x.';
   } else {
     footHtml += 'Sin nueva deuda institucional en este escenario.';
   }
   document.getElementById('captableFoot').innerHTML = footHtml;
 }
-
 function renderWaterfall(r) {
   // True waterfall: deductions and allocations cascade down from Flujo Total top.
   // Sum of bars 2-6 = bar 1 (Flujo Total).
@@ -656,6 +718,15 @@ function render() {
     t.classList.toggle('active', t.getAttribute('data-scenario') === state.scenario);
   });
 
+  // Active raise preset + dynamic labels
+  document.querySelectorAll('.raise-btn').forEach(function(b){
+    b.classList.toggle('active', parseFloat(b.getAttribute('data-raise')) === state.targetRaise);
+  });
+  var raiseLbl = document.getElementById('raiseValueLabel');
+  if (raiseLbl) raiseLbl.textContent = 'USD ' + state.targetRaise + 'M';
+  var ctTitle = document.getElementById('controlsTitleDyn');
+  if (ctTitle) ctTitle.textContent = 'USD 7M ya está dentro, USD ' + state.targetRaise + 'M por levantar (USD ' + (7 + state.targetRaise) + 'M total)';
+
   renderTrajectory();
 }
 
@@ -672,6 +743,14 @@ bind('brokerPctSlider', 'brokerPct', function(v){ return v; });
 document.querySelectorAll('.scenario-tab').forEach(function(t){
   t.addEventListener('click', function(){
     state.scenario = t.getAttribute('data-scenario');
+    render();
+  });
+});
+
+// Target raise preset buttons
+document.querySelectorAll('.raise-btn').forEach(function(b){
+  b.addEventListener('click', function(){
+    state.targetRaise = parseFloat(b.getAttribute('data-raise'));
     render();
   });
 });
